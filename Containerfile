@@ -1,10 +1,15 @@
-FROM scratch
+FROM archlinux:base-devel-20260308.0.497099 AS builder
 
 ARG MINISERVE_VERSION
 
 ADD https://github.com/svenstaro/miniserve/releases/download/v${MINISERVE_VERSION}/miniserve-${MINISERVE_VERSION}-x86_64-unknown-linux-musl /bin/miniserve
 RUN chmod 0755 /bin/miniserve
 
+FROM scratch
+
+ARG MINISERVE_VERSION
+
+COPY --from=builder /bin/miniserve /usr/bin/miniserve
 COPY ./passwd /etc/passwd
 COPY ./shadow /etc/shadow
 
@@ -19,7 +24,7 @@ ENV MINISERVE_HIDE_VERSION_FOOTER=true
 ENV MINISERVE_DISABLE_INDEXING=true
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/miniserve"]
+ENTRYPOINT ["/usr/bin/miniserve"]
 CMD ["."]
 
 LABEL org.opencontainers.image.title="distroless miniserve"
