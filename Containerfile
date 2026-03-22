@@ -1,12 +1,12 @@
 FROM scratch
 
 ARG MINISERVE_VERSION
+
 ADD https://github.com/svenstaro/miniserve/releases/download/v${MINISERVE_VERSION}/miniserve-${MINISERVE_VERSION}-x86_64-unknown-linux-musl /bin/miniserve
 RUN chmod 0755 /bin/miniserve
 
 COPY ./passwd /etc/passwd
 COPY ./shadow /etc/shadow
-COPY --from=fetch /bin/miniserve /bin/miniserve
 
 USER http
 WORKDIR /srv/http
