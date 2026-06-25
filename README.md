@@ -1,3 +1,7 @@
+![Latest](https://ghcr-badge.egpl.dev/simons-containers/distroless-miniserve/latest_tag?ignore=latest,sha256*&label=latest)  
+![Size](https://ghcr-badge.egpl.dev/simons-containers/distroless-miniserve/size?tag=latest)  
+![Tags](https://ghcr-badge.egpl.dev/simons-containers/distroless-miniserve/tags?ignore=latest,sha256*)  
+
 # Distroless Miniserve container
 
 Bare-bones distroless Miniserve container image from `scratch`.
