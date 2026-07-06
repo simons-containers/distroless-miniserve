@@ -1,15 +1,18 @@
-FROM archlinux:base-devel-20260308.0.497099 AS builder
+FROM cgr.dev/chainguard/curl:latest-dev AS fetch
 
 ARG MINISERVE_VERSION
+ARG MINISERVE_RELEASE
 
-ADD https://github.com/svenstaro/miniserve/releases/download/v${MINISERVE_VERSION}/miniserve-${MINISERVE_VERSION}-x86_64-unknown-linux-musl /bin/miniserve
-RUN chmod 0755 /bin/miniserve
+WORKDIR /fetch/miniserve
+RUN curl --silent --show-error --location --output miniserve \
+  "${MINISERVE_RELEASE}" \
+  && chmod 0755 miniserve
 
 FROM scratch
 
 ARG MINISERVE_VERSION
 
-COPY --from=builder /bin/miniserve /usr/bin/miniserve
+COPY --from=fetch /fetch/miniserve/miniserve /usr/bin/miniserve
 COPY ./passwd /etc/passwd
 COPY ./shadow /etc/shadow
 
