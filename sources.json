@@ -1,0 +1,9 @@
+{
+  "miniserve": {
+    "version": "0.35.0",
+    "purl": "pkg:generic/miniserve",
+    "release": {
+      "url_pattern": "https://github.com/svenstaro/miniserve/releases/download/v{version}/miniserve-{version}-x86_64-unknown-linux-musl"
+    }
+  }
+}
